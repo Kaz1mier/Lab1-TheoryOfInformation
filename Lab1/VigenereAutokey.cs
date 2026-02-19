@@ -39,7 +39,7 @@ namespace Lab1
                 char enc = Alphabet[(p + k) % Alphabet.Length];
                 result.Append(enc);
 
-                autokey.Add(c); // расширяем открытым текстом
+                autokey.Add(c); 
                 keyIndex++;
             }
 
@@ -72,7 +72,7 @@ namespace Lab1
                 char decoded = Alphabet[(p - k + Alphabet.Length) % Alphabet.Length];
                 result.Append(decoded);
 
-                autokey.Add(decoded); // расширяем расшифрованным текстом
+                autokey.Add(decoded);
                 keyIndex++;
             }
 
