@@ -1,5 +1,7 @@
-﻿namespace WindowsFormsApp1
+﻿namespace Lab1
 {
+
+
     partial class AboutDeveloperForm
     {
         /// <summary>

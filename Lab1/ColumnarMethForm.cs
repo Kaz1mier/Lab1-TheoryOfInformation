@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 
-namespace WindowsFormsApp1
+namespace Lab1
 {
     public partial class ColumnarMethForm : Form
     {

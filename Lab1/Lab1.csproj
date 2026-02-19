@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AD8B2D78-8451-4525-9DB5-756428FE6504}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WindowsFormsApp1</RootNamespace>
-    <AssemblyName>WindowsFormsApp1</AssemblyName>
+    <RootNamespace>Lab1</RootNamespace>
+    <AssemblyName>Lab1</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Lab1.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,8 +55,6 @@
     <Compile Include="AboutDeveloperForm.Designer.cs">
       <DependentUpon>AboutDeveloperForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
-    <Compile Include="obj\Release\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="VigenereAutokey.cs" />
     <Compile Include="ColumnarMethForm.cs">
       <SubType>Form</SubType>
@@ -93,18 +94,6 @@
     <EmbeddedResource Include="MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="obj\Debug\WindowsFormsApp1.AboutDeveloperForm.resources" />
-    <EmbeddedResource Include="obj\Debug\WindowsFormsApp1.AboutTaskForm.resources" />
-    <EmbeddedResource Include="obj\Debug\WindowsFormsApp1.ColumnarMethForm.resources" />
-    <EmbeddedResource Include="obj\Debug\WindowsFormsApp1.MenuForm.resources" />
-    <EmbeddedResource Include="obj\Debug\WindowsFormsApp1.Properties.Resources.resources" />
-    <EmbeddedResource Include="obj\Debug\WindowsFormsApp1.ViginereAlgoForm.resources" />
-    <EmbeddedResource Include="obj\Release\WindowsFormsApp1.AboutDeveloperForm.resources" />
-    <EmbeddedResource Include="obj\Release\WindowsFormsApp1.AboutTaskForm.resources" />
-    <EmbeddedResource Include="obj\Release\WindowsFormsApp1.ColumnarMethForm.resources" />
-    <EmbeddedResource Include="obj\Release\WindowsFormsApp1.MenuForm.resources" />
-    <EmbeddedResource Include="obj\Release\WindowsFormsApp1.Properties.Resources.resources" />
-    <EmbeddedResource Include="obj\Release\WindowsFormsApp1.ViginereAlgoForm.resources" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -113,25 +102,12 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="ViginereAlgoForm.resx">
       <DependentUpon>ViginereAlgoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="bin\Debug\WindowsFormsApp1.exe.config" />
-    <None Include="bin\Release\WindowsFormsApp1.exe.config" />
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="obj\Debug\Lab1-TheoryOfInformation.csproj.AssemblyReference.cache" />
-    <None Include="obj\Debug\Lab1.csproj.AssemblyReference.cache" />
-    <None Include="obj\Debug\Lab1.csproj.CoreCompileInputs.cache" />
-    <None Include="obj\Debug\Lab1.csproj.GenerateResource.cache" />
-    <None Include="obj\Debug\WindowsFormsApp1.csproj.AssemblyReference.cache" />
-    <None Include="obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache" />
-    <None Include="obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache" />
-    <None Include="obj\Debug\WindowsFormsApp1.exe.config" />
-    <None Include="obj\Release\Lab1-TheoryOfInformation.csproj.AssemblyReference.cache" />
-    <None Include="obj\Release\Lab1-TheoryOfInformation.csproj.CoreCompileInputs.cache" />
-    <None Include="obj\Release\Lab1-TheoryOfInformation.csproj.GenerateResource.cache" />
+    <None Include="bin\Debug\Lab1.exe.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -146,21 +122,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\WindowsFormsApp1.exe" />
-    <Content Include="bin\Debug\WindowsFormsApp1.pdb" />
-    <Content Include="bin\Release\WindowsFormsApp1.exe" />
-    <Content Include="bin\Release\WindowsFormsApp1.pdb" />
-    <Content Include="obj\Debug\Lab1-TheoryOfInformation.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\Lab1.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\WindowsFormsApp1.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\WindowsFormsApp1.exe" />
-    <Content Include="obj\Debug\WindowsFormsApp1.pdb" />
-    <Content Include="obj\Release\Lab1-TheoryOfInformation.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Release\WindowsFormsApp1.exe" />
-    <Content Include="obj\Release\WindowsFormsApp1.pdb" />
+    <Content Include="bin\Debug\Lab1.exe" />
+    <Content Include="bin\Debug\Lab1.pdb" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="bin\Release\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
