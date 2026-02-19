@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutTaskForm));
             this.LbTask = new System.Windows.Forms.Label();
             this.BtnBack = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -36,13 +37,13 @@
             // 
             this.LbTask.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LbTask.Dock = System.Windows.Forms.DockStyle.Top;
-            this.LbTask.Font = new System.Drawing.Font("Matura MT Script Capitals", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LbTask.Font = new System.Drawing.Font("Matura MT Script Capitals", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.LbTask.Location = new System.Drawing.Point(0, 0);
             this.LbTask.Name = "LbTask";
             this.LbTask.Size = new System.Drawing.Size(661, 275);
             this.LbTask.TabIndex = 6;
-            this.LbTask.Text = "Разработчик: Голубёнок Антон Александрович ";
-            this.LbTask.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LbTask.Text = resources.GetString("LbTask.Text");
+            this.LbTask.UseMnemonic = false;
             this.LbTask.Click += new System.EventHandler(this.LbName_Click);
             // 
             // BtnBack
@@ -60,8 +61,10 @@
             // 
             // AboutTaskForm
             // 
+            this.AcceptButton = this.BtnBack;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.BtnBack;
             this.ClientSize = new System.Drawing.Size(661, 353);
             this.Controls.Add(this.BtnBack);
             this.Controls.Add(this.LbTask);

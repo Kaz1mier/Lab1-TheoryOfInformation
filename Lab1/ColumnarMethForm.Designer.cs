@@ -46,12 +46,17 @@
             this.rbtnDecrypt = new System.Windows.Forms.RadioButton();
             this.btnExecute = new System.Windows.Forms.Button();
             this.LbLabName = new System.Windows.Forms.Label();
+            this.dgvStage1 = new System.Windows.Forms.DataGridView();
+            this.dgvStage2 = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStage1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStage2)).BeginInit();
             this.SuspendLayout();
             // 
             // txtInput
             // 
             this.txtInput.Location = new System.Drawing.Point(29, 118);
+            this.txtInput.MaxLength = 300;
             this.txtInput.Multiline = true;
             this.txtInput.Name = "txtInput";
             this.txtInput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -91,6 +96,7 @@
             // txtKey1
             // 
             this.txtKey1.Location = new System.Drawing.Point(276, 118);
+            this.txtKey1.MaxLength = 300;
             this.txtKey1.Name = "txtKey1";
             this.txtKey1.Size = new System.Drawing.Size(210, 26);
             this.txtKey1.TabIndex = 2;
@@ -100,6 +106,7 @@
             // txtKey2
             // 
             this.txtKey2.Location = new System.Drawing.Point(276, 190);
+            this.txtKey2.MaxLength = 300;
             this.txtKey2.Name = "txtKey2";
             this.txtKey2.Size = new System.Drawing.Size(210, 26);
             this.txtKey2.TabIndex = 3;
@@ -126,7 +133,6 @@
             // 
             // btnBack
             // 
-            this.btnBack.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBack.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnBack.Location = new System.Drawing.Point(57, 326);
@@ -139,7 +145,6 @@
             // 
             // btnClear
             // 
-            this.btnClear.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnClear.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClear.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClear.Location = new System.Drawing.Point(537, 326);
@@ -216,7 +221,6 @@
             // 
             // btnExecute
             // 
-            this.btnExecute.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnExecute.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExecute.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnExecute.Enabled = false;
@@ -241,6 +245,48 @@
             this.LbLabName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.LbLabName.UseMnemonic = false;
             // 
+            // dgvStage1
+            // 
+            this.dgvStage1.AllowUserToAddRows = false;
+            this.dgvStage1.AllowUserToDeleteRows = false;
+            this.dgvStage1.AllowUserToResizeColumns = false;
+            this.dgvStage1.AllowUserToResizeRows = false;
+            this.dgvStage1.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvStage1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvStage1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvStage1.ColumnHeadersVisible = false;
+            this.dgvStage1.Location = new System.Drawing.Point(7, 406);
+            this.dgvStage1.Name = "dgvStage1";
+            this.dgvStage1.ReadOnly = true;
+            this.dgvStage1.RowHeadersVisible = false;
+            this.dgvStage1.RowHeadersWidth = 62;
+            this.dgvStage1.RowTemplate.Height = 28;
+            this.dgvStage1.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.dgvStage1.Size = new System.Drawing.Size(353, 173);
+            this.dgvStage1.TabIndex = 32;
+            this.dgvStage1.TabStop = false;
+            // 
+            // dgvStage2
+            // 
+            this.dgvStage2.AllowUserToAddRows = false;
+            this.dgvStage2.AllowUserToDeleteRows = false;
+            this.dgvStage2.AllowUserToResizeColumns = false;
+            this.dgvStage2.AllowUserToResizeRows = false;
+            this.dgvStage2.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvStage2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvStage2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvStage2.ColumnHeadersVisible = false;
+            this.dgvStage2.Location = new System.Drawing.Point(366, 406);
+            this.dgvStage2.Name = "dgvStage2";
+            this.dgvStage2.ReadOnly = true;
+            this.dgvStage2.RowHeadersVisible = false;
+            this.dgvStage2.RowHeadersWidth = 62;
+            this.dgvStage2.RowTemplate.Height = 28;
+            this.dgvStage2.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.dgvStage2.Size = new System.Drawing.Size(369, 173);
+            this.dgvStage2.TabIndex = 33;
+            this.dgvStage2.TabStop = false;
+            // 
             // ColumnarMethForm
             // 
             this.AcceptButton = this.btnExecute;
@@ -248,7 +294,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.CancelButton = this.btnBack;
-            this.ClientSize = new System.Drawing.Size(747, 397);
+            this.ClientSize = new System.Drawing.Size(747, 622);
+            this.Controls.Add(this.dgvStage2);
+            this.Controls.Add(this.dgvStage1);
             this.Controls.Add(this.LbLabName);
             this.Controls.Add(this.btnExecute);
             this.Controls.Add(this.rbtnDecrypt);
@@ -275,6 +323,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ColumnarMethForm_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStage1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStage2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -300,5 +350,7 @@
         private System.Windows.Forms.RadioButton rbtnDecrypt;
         private System.Windows.Forms.Button btnExecute;
         private System.Windows.Forms.Label LbLabName;
+        private System.Windows.Forms.DataGridView dgvStage1;
+        private System.Windows.Forms.DataGridView dgvStage2;
     }
 }

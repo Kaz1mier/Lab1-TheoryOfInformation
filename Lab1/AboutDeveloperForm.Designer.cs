@@ -53,7 +53,7 @@
             this.LbGroup.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LbGroup.AutoSize = true;
             this.LbGroup.Font = new System.Drawing.Font("Matura MT Script Capitals", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.LbGroup.Location = new System.Drawing.Point(51, 130);
+            this.LbGroup.Location = new System.Drawing.Point(34, 122);
             this.LbGroup.Name = "LbGroup";
             this.LbGroup.Size = new System.Drawing.Size(157, 24);
             this.LbGroup.TabIndex = 6;
@@ -77,8 +77,10 @@
             // 
             // AboutDeveloperForm
             // 
+            this.AcceptButton = this.BtnBack;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.BtnBack;
             this.ClientSize = new System.Drawing.Size(579, 250);
             this.Controls.Add(this.BtnBack);
             this.Controls.Add(this.LbGroup);

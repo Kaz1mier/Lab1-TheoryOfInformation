@@ -44,7 +44,12 @@
             this.btnFile = new System.Windows.Forms.ToolStripMenuItem();
             this.btnOpenFile = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSaveFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.dgvVisualization = new System.Windows.Forms.DataGridView();
+            this.lbText = new System.Windows.Forms.Label();
+            this.lbKey2 = new System.Windows.Forms.Label();
+            this.lbResult = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVisualization)).BeginInit();
             this.SuspendLayout();
             // 
             // LbLabName
@@ -62,11 +67,10 @@
             // 
             // btnExecute
             // 
-            this.btnExecute.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnExecute.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExecute.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnExecute.Enabled = false;
-            this.btnExecute.Location = new System.Drawing.Point(311, 291);
+            this.btnExecute.Location = new System.Drawing.Point(304, 295);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(162, 59);
             this.btnExecute.TabIndex = 20;
@@ -78,7 +82,7 @@
             // 
             this.rbtnDecrypt.AutoSize = true;
             this.rbtnDecrypt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rbtnDecrypt.Location = new System.Drawing.Point(337, 247);
+            this.rbtnDecrypt.Location = new System.Drawing.Point(321, 251);
             this.rbtnDecrypt.Name = "rbtnDecrypt";
             this.rbtnDecrypt.Size = new System.Drawing.Size(152, 24);
             this.rbtnDecrypt.TabIndex = 19;
@@ -91,7 +95,7 @@
             // 
             this.rbtnEncrypt.AutoSize = true;
             this.rbtnEncrypt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rbtnEncrypt.Location = new System.Drawing.Point(337, 205);
+            this.rbtnEncrypt.Location = new System.Drawing.Point(321, 205);
             this.rbtnEncrypt.Name = "rbtnEncrypt";
             this.rbtnEncrypt.Size = new System.Drawing.Size(145, 24);
             this.rbtnEncrypt.TabIndex = 17;
@@ -102,10 +106,9 @@
             // 
             // btnClear
             // 
-            this.btnClear.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnClear.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClear.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClear.Location = new System.Drawing.Point(547, 291);
+            this.btnClear.Location = new System.Drawing.Point(547, 295);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(162, 59);
             this.btnClear.TabIndex = 21;
@@ -115,10 +118,9 @@
             // 
             // btnBack
             // 
-            this.btnBack.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBack.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnBack.Location = new System.Drawing.Point(56, 291);
+            this.btnBack.Location = new System.Drawing.Point(56, 295);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(162, 59);
             this.btnBack.TabIndex = 23;
@@ -129,7 +131,7 @@
             // lbKey
             // 
             this.lbKey.AutoSize = true;
-            this.lbKey.Location = new System.Drawing.Point(370, 141);
+            this.lbKey.Location = new System.Drawing.Point(355, 139);
             this.lbKey.Name = "lbKey";
             this.lbKey.Size = new System.Drawing.Size(54, 20);
             this.lbKey.TabIndex = 22;
@@ -137,7 +139,8 @@
             // 
             // txtKey1
             // 
-            this.txtKey1.Location = new System.Drawing.Point(293, 173);
+            this.txtKey1.Location = new System.Drawing.Point(283, 173);
+            this.txtKey1.MaxLength = 300;
             this.txtKey1.Name = "txtKey1";
             this.txtKey1.Size = new System.Drawing.Size(210, 26);
             this.txtKey1.TabIndex = 14;
@@ -175,7 +178,7 @@
             // 
             // txtInput
             // 
-            this.txtInput.Location = new System.Drawing.Point(35, 154);
+            this.txtInput.Location = new System.Drawing.Point(24, 154);
             this.txtInput.Multiline = true;
             this.txtInput.Name = "txtInput";
             this.txtInput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -221,6 +224,58 @@
             this.btnSaveFile.Text = "Сохранить";
             this.btnSaveFile.Click += new System.EventHandler(this.btnSaveFile_Click);
             // 
+            // dgvVisualization
+            // 
+            this.dgvVisualization.AllowUserToAddRows = false;
+            this.dgvVisualization.AllowUserToDeleteRows = false;
+            this.dgvVisualization.AllowUserToResizeColumns = false;
+            this.dgvVisualization.AllowUserToResizeRows = false;
+            this.dgvVisualization.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvVisualization.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvVisualization.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvVisualization.ColumnHeadersVisible = false;
+            this.dgvVisualization.Location = new System.Drawing.Point(175, 395);
+            this.dgvVisualization.Name = "dgvVisualization";
+            this.dgvVisualization.ReadOnly = true;
+            this.dgvVisualization.RowHeadersVisible = false;
+            this.dgvVisualization.RowHeadersWidth = 62;
+            this.dgvVisualization.RowTemplate.Height = 28;
+            this.dgvVisualization.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.dgvVisualization.Size = new System.Drawing.Size(578, 125);
+            this.dgvVisualization.TabIndex = 28;
+            this.dgvVisualization.TabStop = false;
+            // 
+            // lbText
+            // 
+            this.lbText.AutoSize = true;
+            this.lbText.Location = new System.Drawing.Point(20, 395);
+            this.lbText.Name = "lbText";
+            this.lbText.Size = new System.Drawing.Size(135, 20);
+            this.lbText.TabIndex = 29;
+            this.lbText.Text = "Исходный текст:";
+            this.lbText.Visible = false;
+            // 
+            // lbKey2
+            // 
+            this.lbKey2.AutoSize = true;
+            this.lbKey2.Location = new System.Drawing.Point(20, 428);
+            this.lbKey2.Name = "lbKey2";
+            this.lbKey2.Size = new System.Drawing.Size(54, 20);
+            this.lbKey2.TabIndex = 30;
+            this.lbKey2.Text = "Ключ:";
+            this.lbKey2.Visible = false;
+            // 
+            // lbResult
+            // 
+            this.lbResult.Location = new System.Drawing.Point(20, 463);
+            this.lbResult.Name = "lbResult";
+            this.lbResult.Size = new System.Drawing.Size(149, 45);
+            this.lbResult.TabIndex = 31;
+            this.lbResult.Text = "Зашифрованный текст:";
+            this.lbResult.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbResult.UseMnemonic = false;
+            this.lbResult.Visible = false;
+            // 
             // ViginereAlgoForm
             // 
             this.AcceptButton = this.btnExecute;
@@ -228,7 +283,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.CancelButton = this.btnBack;
-            this.ClientSize = new System.Drawing.Size(753, 362);
+            this.ClientSize = new System.Drawing.Size(753, 538);
+            this.Controls.Add(this.lbResult);
+            this.Controls.Add(this.lbKey2);
+            this.Controls.Add(this.lbText);
+            this.Controls.Add(this.dgvVisualization);
             this.Controls.Add(this.LbLabName);
             this.Controls.Add(this.btnExecute);
             this.Controls.Add(this.rbtnDecrypt);
@@ -251,6 +310,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ColumnarMethForm_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVisualization)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,5 +334,9 @@
         private System.Windows.Forms.ToolStripMenuItem btnFile;
         private System.Windows.Forms.ToolStripMenuItem btnOpenFile;
         private System.Windows.Forms.ToolStripMenuItem btnSaveFile;
+        private System.Windows.Forms.DataGridView dgvVisualization;
+        private System.Windows.Forms.Label lbText;
+        private System.Windows.Forms.Label lbKey2;
+        private System.Windows.Forms.Label lbResult;
     }
 }

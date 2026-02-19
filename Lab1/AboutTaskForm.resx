@@ -117,4 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LbTask.Text" xml:space="preserve">
+    <value>Вариант 10.
+Написать программу, которая выполняет шифрование и дешифрование текстового файла любого размера, содержащего текст на заданном языке, используя следующие алгоритмы шифрования:
+- «столбцовый метод» с двумя ключевыми словами, текст на русском языке;
+- алгоритм Виженера, самогенерирующийся ключ, текст на русском языке.
+</value>
+  </data>
 </root>

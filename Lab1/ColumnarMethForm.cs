@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.IO;
 
 namespace Lab1
 {
     public partial class ColumnarMethForm : Form
     {
-        private const string RussianAlphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
+
+
         private bool encryptMode = true;
 
         public ColumnarMethForm()
@@ -18,22 +21,10 @@ namespace Lab1
 
             rbtnEncrypt.Checked = true;
 
-            
-
             txtOutput.TextChanged += (s, e) => UpdateButtons();
 
             UpdateButtons();
         }
-
-
-        private void KeyTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            char c = char.ToUpper(e.KeyChar);
-            if (!char.IsControl(e.KeyChar) &&
-                !RussianAlphabet.Contains(c.ToString()))
-                e.Handled = true;
-        }
-
 
         private void UpdateButtons()
         {
@@ -43,8 +34,8 @@ namespace Lab1
                 txtKey2.TextLength > 0;
 
             btnSaveFile.Enabled = txtOutput.TextLength > 0;
+           
         }
-
 
         private void InputChanged(object sender, EventArgs e)
         {
@@ -52,148 +43,14 @@ namespace Lab1
             UpdateButtons();
         }
 
-
-
-        private int[] GetColumnOrder(string key)
+        private void KeyTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            key = key.ToUpper();
+            char c = char.ToUpper(e.KeyChar);
 
-            var pairs = key
-                .Select((c, i) => new { Char = c, Index = i })
-                .ToList();
-
-            var sorted = pairs
-                .OrderBy(p => RussianAlphabet.IndexOf(p.Char))
-                .ThenBy(p => p.Index)
-                .ToList();
-
-            int[] order = new int[key.Length];
-
-            for (int rank = 0; rank < sorted.Count; rank++)
-                order[rank] = sorted[rank].Index;
-
-            return order;
+            if (!char.IsControl(e.KeyChar) &&
+                !Constants.RussianAlphabet.Contains(c.ToString()))
+                e.Handled = true;
         }
-
-
-        private string CipherWithPreservedSymbols(string text, Func<int[], int[]> cipherFunc)
-        {
-            List<int> letters = new List<int>();
-            List<int> positions = new List<int>();
-
-            for (int i = 0; i < text.Length; i++)
-            {
-                char c = char.ToUpper(text[i]);
-                int idx = RussianAlphabet.IndexOf(c);
-                if (idx >= 0)
-                {
-                    letters.Add(idx);
-                    positions.Add(i);
-                }
-            }
-
-            int[] ciphered = cipherFunc(letters.ToArray());
-
-            char[] result = text.ToCharArray();
-            for (int i = 0; i < ciphered.Length; i++)
-            {
-                result[positions[i]] = RussianAlphabet[ciphered[i]];
-            }
-
-            return new string(result);
-        }
-
-
-        private int[] EncryptMatrix(int[] textIndices, string key)
-        {
-            int cols = key.Length;
-            int rows = (int)Math.Ceiling((double)textIndices.Length / cols);
-            int[] order = GetColumnOrder(key);
-
-            int?[,] matrix = new int?[rows, cols];
-
-            for (int i = 0; i < textIndices.Length; i++)
-            {
-                int row = i / cols;
-                int col = i % cols;
-                matrix[row, col] = textIndices[i];
-            }
-
-            List<int> encrypted = new List<int>();
-            for (int c = 0; c < cols; c++)
-            {
-                int col = order[c];
-                for (int r = 0; r < rows; r++)
-                {
-                    if (matrix[r, col].HasValue)
-                        encrypted.Add(matrix[r, col].Value);
-                }
-            }
-
-            return encrypted.ToArray();
-        }
-
-        private int[] DecryptMatrix(int[] cipherIndices, string key)
-        {
-            int cols = key.Length;
-            int totalChars = cipherIndices.Length;
-            int rows = (int)Math.Ceiling((double)totalChars / cols);
-
-            int[] order = GetColumnOrder(key);
-
-            int baseSize = totalChars / cols;
-            int extra = totalChars % cols;
-
-            int[] realColSizes = new int[cols];
-            for (int c = 0; c < cols; c++)
-                realColSizes[c] = baseSize + (c < extra ? 1 : 0);
-
-            int?[,] matrix = new int?[rows, cols];
-
-            int index = 0;
-
-            for (int k = 0; k < cols; k++)
-            {
-                int realCol = order[k];
-                int size = realColSizes[realCol];
-
-                for (int r = 0; r < size; r++)
-                {
-                    matrix[r, realCol] = cipherIndices[index++];
-                }
-            }
-
-            List<int> result = new List<int>();
-
-            for (int r = 0; r < rows; r++)
-                for (int c = 0; c < cols; c++)
-                    if (matrix[r, c].HasValue)
-                        result.Add(matrix[r, c].Value);
-
-            return result.ToArray();
-        }
-
-
-        private string Encrypt(string text, string k1, string k2)
-        {
-            return CipherWithPreservedSymbols(text, letters =>
-            {
-                int[] step1 = EncryptMatrix(letters, k1);
-                int[] step2 = EncryptMatrix(step1, k2);
-                return step2;
-            });
-        }
-
-        private string Decrypt(string text, string k1, string k2)
-        {
-            return CipherWithPreservedSymbols(text, letters =>
-            {
-                int[] step1 = DecryptMatrix(letters, k2);
-                int[] step2 = DecryptMatrix(step1, k1);
-                return step2;
-            });
-        }
-
 
         private void ExecuteCipher()
         {
@@ -214,8 +71,14 @@ namespace Lab1
             try
             {
                 txtOutput.Text = encryptMode
-                    ? Encrypt(txtInput.Text, txtKey1.Text, txtKey2.Text)
-                    : Decrypt(txtInput.Text, txtKey1.Text, txtKey2.Text);
+                    ? ColumnarMethod.Encrypt(
+                        txtInput.Text,
+                        txtKey1.Text,
+                        txtKey2.Text)
+                    : ColumnarMethod.Decrypt(
+                        txtInput.Text,
+                        txtKey1.Text,
+                        txtKey2.Text);
             }
             catch (Exception ex)
             {
@@ -224,26 +87,41 @@ namespace Lab1
             }
         }
 
-
         private void btnExecute_Click(object sender, EventArgs e)
         {
             ExecuteCipher();
+            VisualizeDoubleColumnar();
+
             UpdateButtons();
         }
 
         private void rbtnEncrypt_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbtnEncrypt.Checked) encryptMode = true;
-            txtOutput.Clear();
-            if (btnExecute.Enabled) ExecuteCipher();
+            if (rbtnEncrypt.Checked)
+                encryptMode = true;
 
+            txtOutput.Clear();
+
+            if (btnExecute.Enabled) { 
+                ExecuteCipher();
+                VisualizeDoubleColumnar();
+                UpdateButtons();
+            }
         }
 
         private void rbtnDecrypt_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbtnDecrypt.Checked) encryptMode = false;
+            if (rbtnDecrypt.Checked)
+                encryptMode = false;
+
             txtOutput.Clear();
-            if (btnExecute.Enabled) ExecuteCipher();
+
+            if (btnExecute.Enabled)
+            {
+                ExecuteCipher();
+                VisualizeDoubleColumnar();
+                UpdateButtons();
+            }
         }
 
         private void btnOpenFile_Click(object sender, EventArgs e)
@@ -258,7 +136,11 @@ namespace Lab1
             {
                 try
                 {
-                    txtInput.Text = File.ReadAllText(dlg.FileName, Encoding.UTF8);
+                    string fileText = File.ReadAllText(dlg.FileName, Encoding.UTF8);
+
+                    
+
+                    txtInput.Text = fileText;
                 }
                 catch (Exception ex)
                 {
@@ -285,12 +167,20 @@ namespace Lab1
             {
                 try
                 {
-                    File.WriteAllText(dlg.FileName, txtOutput.Text, Encoding.UTF8);
-                    MessageBox.Show("Файл успешно сохранен!", "Успех");
+                    File.WriteAllText(
+                        dlg.FileName,
+                        txtOutput.Text,
+                        Encoding.UTF8);
+
+                    MessageBox.Show(
+                        "Файл успешно сохранен!",
+                        "Успех");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка при сохранении файла: {ex.Message}", "Ошибка");
+                    MessageBox.Show(
+                        $"Ошибка при сохранении файла: {ex.Message}",
+                        "Ошибка");
                 }
             }
         }
@@ -302,11 +192,18 @@ namespace Lab1
             txtKey1.Clear();
             txtKey2.Clear();
             rbtnEncrypt.Checked = true;
+            dgvStage1.Rows.Clear();
+            dgvStage1.Columns.Clear();
+            dgvStage2.Rows.Clear();
+            dgvStage2.Columns.Clear();
         }
 
-        private void btnBack_Click(object sender, EventArgs e) => Close();
+        private void btnBack_Click(object sender, EventArgs e)
+            => Close();
 
-        private void ColumnarMethForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void ColumnarMethForm_FormClosing(
+            object sender,
+            FormClosingEventArgs e)
         {
             foreach (Form form in Application.OpenForms)
             {
@@ -318,6 +215,145 @@ namespace Lab1
             }
         }
 
-        
+        private int[] GetColumnOrder(string key)
+        {
+            return key
+                .Select((c, i) => new { Char = c, Index = i })
+                .OrderBy(x => Constants.RussianAlphabet.IndexOf(x.Char))
+                .ThenBy(x => x.Index)
+                .Select(x => x.Index)
+                .ToArray();
+        }
+
+        private void VisualizeDoubleColumnar()
+        {
+            string clean = txtInput.Text.ToUpper();
+
+            if (encryptMode)
+            {
+                // Шифрование: сначала первая таблица, потом вторая
+                string step1 = VisualizeColumnar(dgvStage1, clean, txtKey1.Text, true);
+                VisualizeColumnar(dgvStage2, step1, txtKey2.Text, true);
+            }
+            else
+            {
+                // Дешифровка: сначала вторая таблица, потом первая
+                string step2 = VisualizeColumnar(dgvStage2, clean, txtKey2.Text, false);
+                VisualizeColumnar(dgvStage1, step2, txtKey1.Text, false);
+            }
+        }
+
+
+
+        private string VisualizeColumnar(DataGridView dgv, string text, string key, bool encrypt)
+        {
+            dgv.Columns.Clear();
+            dgv.Rows.Clear();
+
+            key = key.ToUpper();
+            int cols = key.Length;
+
+            dgv.RowHeadersVisible = false;
+            dgv.ColumnHeadersVisible = false;
+            dgv.AllowUserToAddRows = false;
+            dgv.AllowUserToDeleteRows = false;
+            dgv.ReadOnly = true;
+            dgv.ScrollBars = ScrollBars.Both;
+
+            for (int c = 0; c < cols; c++)
+            {
+                var col = new DataGridViewTextBoxColumn
+                {
+                    SortMode = DataGridViewColumnSortMode.NotSortable,
+                    Width = 35
+                };
+                dgv.Columns.Add(col);
+            }
+
+            List<int> letters = text
+                .Where(ch => Constants.RussianAlphabet.Contains(ch))
+                .Select(ch => Constants.RussianAlphabet.IndexOf(ch))
+                .ToList();
+
+            if (letters.Count == 0)
+                return text;
+
+            int rows = (int)Math.Ceiling((double)letters.Count / cols);
+            dgv.Rows.Add(rows + 1);
+
+            for (int c = 0; c < cols; c++)
+            {
+                dgv.Rows[0].Cells[c].Value = key[c];
+                dgv.Rows[0].Cells[c].Style.BackColor = Color.LightGray;
+            }
+
+            int?[,] matrix = new int?[rows, cols];
+
+            if (encrypt)
+            {
+                for (int i = 0; i < letters.Count; i++)
+                {
+                    int r = i / cols;
+                    int c = i % cols;
+                    matrix[r, c] = letters[i];
+                }
+            }
+            else
+            {
+                int[] order = GetColumnOrder(key);
+                int baseSize = letters.Count / cols;
+                int extra = letters.Count % cols;
+                int[] colSizes = new int[cols];
+                for (int c = 0; c < cols; c++)
+                    colSizes[c] = baseSize + (c < extra ? 1 : 0);
+
+                int index = 0;
+                for (int k = 0; k < cols; k++)
+                {
+                    int col = order[k];
+                    for (int r = 0; r < colSizes[col]; r++)
+                    {
+                        matrix[r, col] = letters[index++];
+                    }
+                }
+            }
+
+            for (int r = 0; r < rows; r++)
+                for (int c = 0; c < cols; c++)
+                    if (matrix[r, c].HasValue)
+                        dgv.Rows[r + 1].Cells[c].Value =
+                            Constants.RussianAlphabet[matrix[r, c].Value];
+
+            List<int> result = new List<int>();
+            if (encrypt)
+            {
+                int[] order = GetColumnOrder(key);
+                for (int k = 0; k < cols; k++)
+                {
+                    int col = order[k];
+                    for (int r = 0; r < rows; r++)
+                        if (matrix[r, col].HasValue)
+                            result.Add(matrix[r, col].Value);
+                }
+            }
+            else
+            {
+                for (int r = 0; r < rows; r++)
+                    for (int c = 0; c < cols; c++)
+                        if (matrix[r, c].HasValue)
+                            result.Add(matrix[r, c].Value);
+            }
+
+            return new string(result.Select(i => Constants.RussianAlphabet[i]).ToArray());
+        }
+
+
+
+
+
+
+
+
     }
+
 }

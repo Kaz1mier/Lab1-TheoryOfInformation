@@ -90,7 +90,7 @@
             this.LbLabName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LbLabName.Dock = System.Windows.Forms.DockStyle.Top;
             this.LbLabName.Font = new System.Drawing.Font("Matura MT Script Capitals", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.LbLabName.Location = new System.Drawing.Point(0, 33);
+            this.LbLabName.Location = new System.Drawing.Point(0, 36);
             this.LbLabName.Name = "LbLabName";
             this.LbLabName.Size = new System.Drawing.Size(518, 106);
             this.LbLabName.TabIndex = 4;
@@ -106,14 +106,14 @@
             this.BtnAbutTask});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(518, 33);
+            this.menuStrip1.Size = new System.Drawing.Size(518, 36);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // BtnAboutDeveloper
             // 
             this.BtnAboutDeveloper.Name = "BtnAboutDeveloper";
-            this.BtnAboutDeveloper.Size = new System.Drawing.Size(161, 29);
+            this.BtnAboutDeveloper.Size = new System.Drawing.Size(161, 32);
             this.BtnAboutDeveloper.Tag = "4";
             this.BtnAboutDeveloper.Text = "О разработчике";
             this.BtnAboutDeveloper.Click += new System.EventHandler(this.BtnAboutDeveloper_Click);
@@ -121,7 +121,7 @@
             // BtnAbutTask
             // 
             this.BtnAbutTask.Name = "BtnAbutTask";
-            this.BtnAbutTask.Size = new System.Drawing.Size(95, 29);
+            this.BtnAbutTask.Size = new System.Drawing.Size(95, 32);
             this.BtnAbutTask.Tag = "5";
             this.BtnAbutTask.Text = "Задание";
             this.BtnAbutTask.Click += new System.EventHandler(this.BtnAbutTask_Click);

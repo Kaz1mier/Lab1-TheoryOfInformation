@@ -8,10 +8,10 @@ namespace Lab1
 {
     public static class VigenereAutokey
     {
-        private const string Alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
+        
 
         private static bool IsRussianLetter(char c)
-            => Alphabet.Contains(c);
+            => Constants.RussianAlphabet.Contains(c);
 
         public static string Encrypt(string text, string key)
         {
@@ -33,10 +33,10 @@ namespace Lab1
 
                 char kChar = autokey[keyIndex];
 
-                int p = Alphabet.IndexOf(c);
-                int k = Alphabet.IndexOf(kChar);
+                int p = Constants.RussianAlphabet.IndexOf(c);
+                int k = Constants.RussianAlphabet.IndexOf(kChar);
 
-                char enc = Alphabet[(p + k) % Alphabet.Length];
+                char enc = Constants.RussianAlphabet[(p + k) % Constants.RussianAlphabet.Length];
                 result.Append(enc);
 
                 autokey.Add(c); 
@@ -66,10 +66,10 @@ namespace Lab1
 
                 char kChar = autokey[keyIndex];
 
-                int p = Alphabet.IndexOf(c);
-                int k = Alphabet.IndexOf(kChar);
+                int p = Constants.RussianAlphabet.IndexOf(c);
+                int k = Constants.RussianAlphabet.IndexOf(kChar);
 
-                char decoded = Alphabet[(p - k + Alphabet.Length) % Alphabet.Length];
+                char decoded = Constants.RussianAlphabet[(p - k + Constants.RussianAlphabet.Length) % Constants.RussianAlphabet.Length];
                 result.Append(decoded);
 
                 autokey.Add(decoded);

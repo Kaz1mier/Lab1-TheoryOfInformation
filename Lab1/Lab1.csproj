@@ -55,6 +55,7 @@
     <Compile Include="AboutDeveloperForm.Designer.cs">
       <DependentUpon>AboutDeveloperForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ColumnarCipher.cs" />
     <Compile Include="VigenereAutokey.cs" />
     <Compile Include="ColumnarMethForm.cs">
       <SubType>Form</SubType>

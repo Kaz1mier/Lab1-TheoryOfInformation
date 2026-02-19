@@ -1,28 +1,23 @@
 ﻿using Lab1;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Lab1
 {
     public partial class ViginereAlgoForm : Form
     {
-
-        private const string RussianAlphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
         private bool encryptMode = true;
+        private const int MaxVisualizationLength = 100; // сколько символов визуализировать
+
         public ViginereAlgoForm()
         {
             InitializeComponent();
             rbtnEncrypt.Checked = true;
         }
-
 
         private void btnBack_Click(object sender, EventArgs e) => Close();
 
@@ -61,7 +56,7 @@ namespace Lab1
 
         private void btnSaveFile_Click(object sender, EventArgs e)
         {
-            if (txtOutput.Text.Length == 0)
+            if (txtOutput.TextLength == 0)
             {
                 MessageBox.Show("Нет данных для сохранения!", "Ошибка");
                 return;
@@ -89,13 +84,15 @@ namespace Lab1
 
         private void UpdateButtons()
         {
-            btnExecute.Enabled =
-                txtInput.TextLength > 0 &&
-                txtKey1.TextLength > 0;
-
+            btnExecute.Enabled = txtInput.TextLength > 0 && txtKey1.TextLength > 0;
             btnSaveFile.Enabled = txtOutput.TextLength > 0;
-        }
 
+            dgvVisualization.Rows.Clear();
+            dgvVisualization.Columns.Clear();
+            lbText.Visible = false;
+            lbKey2.Visible = false;
+            lbResult.Visible = false;
+        }
 
         private void InputChanged(object sender, EventArgs e)
         {
@@ -108,14 +105,15 @@ namespace Lab1
             txtInput.Clear();
             txtOutput.Clear();
             txtKey1.Clear();
+            dgvVisualization.Rows.Clear();
+            dgvVisualization.Columns.Clear();
             rbtnEncrypt.Checked = true;
         }
 
         private void txtKey_KeyPress(object sender, KeyPressEventArgs e)
         {
             char c = char.ToUpper(e.KeyChar);
-            if (!char.IsControl(e.KeyChar) &&
-                !RussianAlphabet.Contains(c.ToString()))
+            if (!char.IsControl(c) && !Constants.RussianAlphabet.Contains(c))
                 e.Handled = true;
         }
 
@@ -127,23 +125,92 @@ namespace Lab1
                 txtOutput.Text = VigenereAutokey.Decrypt(txtInput.Text, txtKey1.Text);
 
             UpdateButtons();
+
+            // визуализируем только первые 100 символов
+            string textForVisualization = txtInput.Text.Length > MaxVisualizationLength
+                ? txtInput.Text.Substring(0, MaxVisualizationLength)
+                : txtInput.Text;
+
+            VisualizeVigenere(textForVisualization, txtKey1.Text, encryptMode);
         }
 
         private void rbtnEncrypt_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbtnEncrypt.Checked) encryptMode = true;
+            encryptMode = rbtnEncrypt.Checked;
             txtOutput.Clear();
-            txtOutput.Text = VigenereAutokey.Encrypt(txtInput.Text, txtKey1.Text);
-            UpdateButtons();
         }
 
         private void rbtnDecrypt_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbtnDecrypt.Checked) encryptMode = false;
+            encryptMode = rbtnDecrypt.Checked;
             txtOutput.Clear();
-            txtOutput.Text = VigenereAutokey.Decrypt(txtInput.Text, txtKey1.Text);
-            UpdateButtons();
         }
 
+        private void VisualizeVigenere(string text, string key, bool encrypt)
+        {
+            text = text.ToUpper();
+            key = new string(key.ToUpper().Where(c => Constants.RussianAlphabet.Contains(c)).ToArray());
+
+            lbText.Visible = true;
+            lbKey2.Visible = true;
+            lbResult.Visible = true;
+
+            dgvVisualization.Columns.Clear();
+            dgvVisualization.Rows.Clear();
+
+            foreach (char c in text)
+            {
+                dgvVisualization.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Width = 35,
+                    SortMode = DataGridViewColumnSortMode.NotSortable
+                });
+            }
+
+            dgvVisualization.Rows.Add(3); // три строки
+
+            List<char> autokey = new List<char>(key);
+            int keyIndex = 0;
+
+            for (int i = 0; i < text.Length; i++)
+            {
+                char c = text[i];
+
+                if (!Constants.RussianAlphabet.Contains(c))
+                {
+                    dgvVisualization.Rows[1].Cells[i].Value = "-";          // ключ
+                    dgvVisualization.Rows[2].Cells[i].Value = c.ToString(); // шифротекст
+                    dgvVisualization.Rows[0].Cells[i].Value = c.ToString(); // результат = копия
+                    continue;
+                }
+
+                char kChar = autokey[keyIndex];
+                int ci = Constants.RussianAlphabet.IndexOf(c);
+                int ki = Constants.RussianAlphabet.IndexOf(kChar);
+                char resultChar;
+
+                if (encrypt)
+                {
+                    resultChar = Constants.RussianAlphabet[(ci + ki) % Constants.RussianAlphabet.Length];
+                    autokey.Add(c);
+                    dgvVisualization.Rows[0].Cells[i].Value = c.ToString();
+                    dgvVisualization.Rows[2].Cells[i].Value = resultChar;
+                }
+                else
+                {
+                    resultChar = Constants.RussianAlphabet[(ci - ki + Constants.RussianAlphabet.Length) % Constants.RussianAlphabet.Length];
+                    autokey.Add(resultChar);
+                    dgvVisualization.Rows[0].Cells[i].Value = resultChar;   // расшифровка
+                    dgvVisualization.Rows[2].Cells[i].Value = c.ToString(); // шифротекст
+                }
+
+                dgvVisualization.Rows[1].Cells[i].Value = kChar; // ключ / автоключ
+                keyIndex++;
+            }
+
+            dgvVisualization.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvVisualization.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvVisualization.ScrollBars = ScrollBars.Horizontal;
+        }
     }
 }
