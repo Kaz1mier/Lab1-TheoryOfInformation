@@ -231,13 +231,11 @@ namespace Lab1
 
             if (encryptMode)
             {
-                // Шифрование: сначала первая таблица, потом вторая
                 string step1 = VisualizeColumnar(dgvStage1, clean, txtKey1.Text, true);
                 VisualizeColumnar(dgvStage2, step1, txtKey2.Text, true);
             }
             else
             {
-                // Дешифровка: сначала вторая таблица, потом первая
                 string step2 = VisualizeColumnar(dgvStage2, clean, txtKey2.Text, false);
                 VisualizeColumnar(dgvStage1, step2, txtKey1.Text, false);
             }
@@ -279,12 +277,16 @@ namespace Lab1
                 return text;
 
             int rows = (int)Math.Ceiling((double)letters.Count / cols);
-            dgv.Rows.Add(rows + 1);
+            dgv.Rows.Add(rows + 2); 
 
             for (int c = 0; c < cols; c++)
             {
                 dgv.Rows[0].Cells[c].Value = key[c];
                 dgv.Rows[0].Cells[c].Style.BackColor = Color.LightGray;
+
+               
+                dgv.Rows[1].Cells[c].Value = Constants.RussianAlphabet.IndexOf(key[c]) + 1; 
+                dgv.Rows[1].Cells[c].Style.BackColor = Color.LightYellow;
             }
 
             int?[,] matrix = new int?[rows, cols];
@@ -318,12 +320,14 @@ namespace Lab1
                 }
             }
 
+    
             for (int r = 0; r < rows; r++)
                 for (int c = 0; c < cols; c++)
                     if (matrix[r, c].HasValue)
-                        dgv.Rows[r + 1].Cells[c].Value =
+                        dgv.Rows[r + 2].Cells[c].Value = 
                             Constants.RussianAlphabet[matrix[r, c].Value];
 
+  
             List<int> result = new List<int>();
             if (encrypt)
             {
@@ -346,6 +350,7 @@ namespace Lab1
 
             return new string(result.Select(i => Constants.RussianAlphabet[i]).ToArray());
         }
+
 
 
 

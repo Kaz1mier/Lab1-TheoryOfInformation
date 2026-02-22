@@ -11,7 +11,7 @@ namespace Lab1
     public partial class ViginereAlgoForm : Form
     {
         private bool encryptMode = true;
-        private const int MaxVisualizationLength = 100; // сколько символов визуализировать
+        private const int MaxVisualizationLength = 100; 
 
         public ViginereAlgoForm()
         {
@@ -126,7 +126,6 @@ namespace Lab1
 
             UpdateButtons();
 
-            // визуализируем только первые 100 символов
             string textForVisualization = txtInput.Text.Length > MaxVisualizationLength
                 ? txtInput.Text.Substring(0, MaxVisualizationLength)
                 : txtInput.Text;
@@ -178,9 +177,9 @@ namespace Lab1
 
                 if (!Constants.RussianAlphabet.Contains(c))
                 {
-                    dgvVisualization.Rows[1].Cells[i].Value = "-";          // ключ
-                    dgvVisualization.Rows[2].Cells[i].Value = c.ToString(); // шифротекст
-                    dgvVisualization.Rows[0].Cells[i].Value = c.ToString(); // результат = копия
+                    dgvVisualization.Rows[1].Cells[i].Value = "-";         
+                    dgvVisualization.Rows[2].Cells[i].Value = c.ToString(); 
+                    dgvVisualization.Rows[0].Cells[i].Value = c.ToString(); 
                     continue;
                 }
 
@@ -200,11 +199,11 @@ namespace Lab1
                 {
                     resultChar = Constants.RussianAlphabet[(ci - ki + Constants.RussianAlphabet.Length) % Constants.RussianAlphabet.Length];
                     autokey.Add(resultChar);
-                    dgvVisualization.Rows[0].Cells[i].Value = resultChar;   // расшифровка
-                    dgvVisualization.Rows[2].Cells[i].Value = c.ToString(); // шифротекст
+                    dgvVisualization.Rows[0].Cells[i].Value = resultChar;  
+                    dgvVisualization.Rows[2].Cells[i].Value = c.ToString(); 
                 }
 
-                dgvVisualization.Rows[1].Cells[i].Value = kChar; // ключ / автоключ
+                dgvVisualization.Rows[1].Cells[i].Value = kChar; 
                 keyIndex++;
             }
 
