@@ -255,14 +255,14 @@
             this.dgvStage1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvStage1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStage1.ColumnHeadersVisible = false;
-            this.dgvStage1.Location = new System.Drawing.Point(7, 406);
+            this.dgvStage1.Location = new System.Drawing.Point(0, 391);
             this.dgvStage1.Name = "dgvStage1";
             this.dgvStage1.ReadOnly = true;
             this.dgvStage1.RowHeadersVisible = false;
             this.dgvStage1.RowHeadersWidth = 62;
             this.dgvStage1.RowTemplate.Height = 28;
             this.dgvStage1.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.dgvStage1.Size = new System.Drawing.Size(353, 173);
+            this.dgvStage1.Size = new System.Drawing.Size(742, 259);
             this.dgvStage1.TabIndex = 32;
             this.dgvStage1.TabStop = false;
             // 
@@ -276,14 +276,14 @@
             this.dgvStage2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvStage2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStage2.ColumnHeadersVisible = false;
-            this.dgvStage2.Location = new System.Drawing.Point(366, 406);
+            this.dgvStage2.Location = new System.Drawing.Point(0, 648);
             this.dgvStage2.Name = "dgvStage2";
             this.dgvStage2.ReadOnly = true;
             this.dgvStage2.RowHeadersVisible = false;
             this.dgvStage2.RowHeadersWidth = 62;
             this.dgvStage2.RowTemplate.Height = 28;
             this.dgvStage2.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.dgvStage2.Size = new System.Drawing.Size(369, 173);
+            this.dgvStage2.Size = new System.Drawing.Size(742, 281);
             this.dgvStage2.TabIndex = 33;
             this.dgvStage2.TabStop = false;
             // 
@@ -294,7 +294,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.CancelButton = this.btnBack;
-            this.ClientSize = new System.Drawing.Size(747, 622);
+            this.ClientSize = new System.Drawing.Size(747, 925);
             this.Controls.Add(this.dgvStage2);
             this.Controls.Add(this.dgvStage1);
             this.Controls.Add(this.LbLabName);
